@@ -13,7 +13,7 @@
 // 关于可靠性的注意事项
 {
     // 开始
-    { // 接口 属性多的 可以赋值给 属性少的
+    { // 对象 属性多的 可以赋值给 属性少的
         // interface Target {
         //   a: string
         // }
@@ -27,7 +27,7 @@
     {
         // arguments
         {
-            { // 函数 参数少的 可以赋值给 参数多的
+            { // 函数 对象参数属性少的 参数少的 可以赋值给 参数多的
                 let a = (x) => {
                     console.log(x);
                 };
@@ -41,7 +41,7 @@
         }
         // argumentsWithObject
         {
-            { // 函数 对象参数 属性少的 可以赋值给 属性多的
+            {
                 let a = (o) => {
                     console.log(o);
                 };
@@ -50,7 +50,7 @@
                 };
                 b = a;
                 b({ x: '1', y: 3 });
-                a = b; // error
+                // a = b // error
             }
         }
         // returns
@@ -64,3 +64,26 @@
         }
     }
 }
+// 函数参数双向协变
+{
+    function exm(fn) {
+        console.log(fn);
+    }
+    console.log(exm);
+    // exm((x: Target) => {console.log(x.x, x.y)})  // strictFunctionTypes 未开启下 目标函数 的参数必须是 源函数 的子类型  开启将无法赋值 ==> 不建议
+    exm((x) => { console.log(x.x); });
+    exm(((e) => { console.log(e.x); }));
+}
+// 可选参数和剩余参数
+{
+    function exm(...a) {
+        console.log(a);
+    }
+    exm(1, 2);
+}
+// 类
+// 对象 属性多的 可以赋值给 属性少的
+// 函数 对象参数属性少的 参数少的 可以赋值给 参数多的
+// 函数 返回值为对象 属性多的 可以赋值给 属性少的 
+// => 类型系统强制 源函数(右侧) 的返回值类型必须是 目标函数(左侧) 返回值类型的子类型
+// strictFunctionTypes 未开启下 目标函数 的参数必须是 源函数 的子类型  开启将无法赋值 ==> 不建议
