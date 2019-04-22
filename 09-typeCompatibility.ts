@@ -99,6 +99,39 @@
 }
 
 // 类
+{
+  class Target {
+    a: string = 'target'
+  }
+  class Exm {
+    a: string = 'emx'
+  }
+  let target: Target = new Target()
+  let exm: Exm = new Exm()
+  target = exm
+  exm = target
+}
+
+// 类的私有成员和受保护成员
+{
+  // 泛型
+  {
+    {
+      /* interface Exm<T> { }
+      let exm1: Exm<number>
+      let exm2: Exm<string> = {}
+      exm1 = exm2 */
+    }
+    {
+      /* interface Exm<T> {
+        a: T
+      }
+      let exm1: Exm<number> = { a: 1 }
+      let exm2: Exm<string> = { a: 'string' } */
+      // exm1 = exm2 // error
+    }
+  }
+}
 
 // 对象 属性多的 可以赋值给 属性少的
 // 函数 对象参数属性少的 参数少的 可以赋值给 参数多的
