@@ -71,7 +71,7 @@
     a: number
     b: number
   }
-  type Key = 'a' | 'b'
+  type Key = keyof Exm
   function getProperty<T extends Exm, K extends Key>(obj: T, key: K): any {
     return obj[key]
   }
